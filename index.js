@@ -28,7 +28,7 @@ function funcionIntentos(numero) {
 
 // let palabraAleatoria = palabras[Math.round(Math.random() * 10)];
 
-let palabraAleatoria = "palabra"
+let palabraAleatoria = palabras[Math.round(Math.random() * 10)]
 
 let palabra = palabraAleatoria.split(""); // f2 para cambiar todos los lugares de una variable
 
