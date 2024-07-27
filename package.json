@@ -1,0 +1,14 @@
+{
+  "name": "adivina-la-palabra",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "js"
+  ],
+  "author": "Lisandro Ramirez",
+  "license": "ISC",
+  "description": ""
+}
