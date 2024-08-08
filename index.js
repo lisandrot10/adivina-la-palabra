@@ -4,31 +4,67 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-const palabras = [
-  "programa",
-  "desarrollo",
-  "javascript",
-  "github",
-  "nodemon",
-  "aplicacion",
-  "pikachu",
-  "factorial",
-  "multiplicacion",
-  "division",
-  "quasimodo",
+const palabrasFaciles = [
+  { palabra: "Gato", pista: "Animal doméstico que maúlla." },
+  { palabra: "Sol", pista: "Estrella que ilumina y calienta la Tierra." },
+  { palabra: "Casa", pista: "Lugar donde vivimos." },
+  { palabra: "Libro", pista: "Objeto con páginas que leemos." },
+  { palabra: "Mesa", pista: "Mueble con patas donde comemos o trabajamos." },
+  { palabra: "Flor", pista: "Parte colorida de una planta." },
+  {
+    palabra: "Coche",
+    pista: "Vehículo con cuatro ruedas que usamos para transportarnos.",
+  },
+  { palabra: "Pan", pista: "Alimento hecho de harina y agua, horneado." },
+  {
+    palabra: "Luna",
+    pista: "Satélite natural de la Tierra que vemos de noche.",
+  },
+  { palabra: "Perro", pista: "Animal doméstico que ladra." },
+  {
+    palabra: "Lápiz",
+    pista: "Instrumento que usamos para escribir o dibujar.",
+  },
 ];
 
-function funcionIntentos(numero) {
-  if (numero === 0) {
-    return;
-  }
-  console.log("intentos restantes: ", numero);
-  intentos(numero - 1);
-}
+const palabrasIntermedias = [
+  {
+    palabra: "Bicicleta",
+    pista: "Medio de transporte con dos ruedas que se mueve al pedalear.",
+  },
+  {
+    palabra: "Televisión",
+    pista: "Dispositivo que usamos para ver programas y películas.",
+  },
+  { palabra: "Puente", pista: "Estructura que permite cruzar ríos o valles." },
+  {
+    palabra: "Tijeras",
+    pista: "Herramienta que usamos para cortar papel o tela.",
+  },
+  {
+    palabra: "Cámara",
+    pista: "Dispositivo que usamos para tomar fotos o grabar videos.",
+  },
+  {
+    palabra: "Montaña",
+    pista: "Es una elevación natural del terreno, más alta que una colina.",
+  },
+  {
+    palabra: "Computadora",
+    pista:
+      "Dispositivo electrónico que usamos para trabajar, jugar y navegar por internet.",
+  },
+  { palabra: "Avión", pista: "Medio de transporte que vuela por el cielo." },
+  {
+    palabra: "Teléfono",
+    pista: "Dispositivo que usamos para hacer llamadas y enviar mensajes.",
+  },
+  { palabra: "Reloj", pista: "Objeto que usamos para saber la hora." },
+];
 
-// let palabraAleatoria = palabras[Math.round(Math.random() * 10)];
+let palabraAleatoria = "";
 
-let palabraAleatoria = palabras[Math.round(Math.random() * 10)]
+let pista = "";
 
 let palabra = palabraAleatoria.split(""); // f2 para cambiar todos los lugares de una variable
 
@@ -38,9 +74,32 @@ let letrasAdivinadas = [];
 
 let palabraOculta = new Array(palabra.length).fill("_");
 
-function adivinaLaPalabra() {
-  console.log(palabraOculta);
+let numeroAleatorio = Math.round(Math.random() * 10);
 
+function dificultad() {
+  rl.question(
+    "Hola, bienvenido al juego de adivina la palabra, quieres una palabra facil o intermedia? ",
+    (opcion) => {
+      if (opcion === "facil") {
+        palabraAleatoria = palabrasFaciles[numeroAleatorio].palabra;
+        pista = palabrasFaciles[numeroAleatorio].pista;
+        return
+      }
+
+      if (opcion === "intermedio") {
+        palabraAleatoria = palabrasIntermedias[numeroAleatorio].palabra;
+        pista = palabrasIntermedias[numeroAleatorio].pista;
+        return
+      }
+    }
+  );
+}
+
+function adivinaLaPalabra() {
+  dificultad();
+
+  console.log(palabraOculta);
+  console.log(pista);
 
   if (palabraOculta.join("") === palabra.join("")) {
     console.log(`felicidades has ganado`);
@@ -54,10 +113,9 @@ function adivinaLaPalabra() {
   }
   rl.question("Escribe una letra: ", (letra) => {
     if (letrasAdivinadas.indexOf(letra) >= 0) {
-        console.log(`la letra ${letra} ya fue adivinada`);
-        adivinaLaPalabra()
-        return
-        
+      console.log(`la letra ${letra} ya fue adivinada`);
+      adivinaLaPalabra();
+      return;
     }
     if (palabra.indexOf(letra) >= 0) {
       letrasAdivinadas.push(letra);
